@@ -1,23 +1,23 @@
-            //var curLoc = 0;
+            var curLoc = 0;
 			var score = 0;	
 			var inventory = "";
 			var locArray = [];
-			    locArray[0] = curLoc;
-				locArray[1] = curLoc;
-				locArray[2] = curLoc;				
-				locArray[3] = curLoc;
-				locArray[4] = curLoc;
-				locArray[5] = curLoc;
-				locArray[6] = curLoc;
-				locArray[7] = curLoc;
-				locArray[8] = curLoc;
-				locArray[9] = curLoc;
-				locArray[10] = curLoc;
+			    locArray[0] = Loc0_smth,
+				locArray[1] = Loc1_smth,
+				locArray[2] = Loc2_smth,			
+				locArray[3] = Loc3_smth,
+				locArray[4] = Loc4_smth,
+				locArray[5] = Loc5_smth,
+				locArray[6] = Loc6_smth,
+				locArray[7] = Loc7_smth,
+				locArray[8] = Loc8_smth,
+				locArray[9] = Loc9_smth,
+				locArray[10] = Loc10_smth
 				
 				
 						
-/*		   
-		   var hasVisitedRoom0 = false;
+		   
+		    var hasVisitedRoom0 = false;
 		    var hasVisitedRoom1 = false;
 		    var hasVisitedRoom2 = false;
 		    var hasVisitedRoom3 = false;
@@ -28,10 +28,10 @@
 			var hasVisitedRoom8 = false;
 			var hasVisitedRoom9 = false;
 			var hasVisitedRoom10 = false;
-			*/
+			
 		   //initial function
 		   function init() {
-		        Locale();
+				updateDisplay(Loc0_smth.message);
 				buttonVisibility();			
 			    document.getElementById("picture").style.visibility = "hidden";
 				takeButtonVisibility();
@@ -39,76 +39,83 @@
 				document.getElementById("scoreText").readOnly = true;
 				} 
 			// Location prototype	
-			function Locale() {
+			function locale() {
 			     this.id = "";
 				 this.name = "";
 				 this.message = "";
+			     this.toString = function() {
+				     var text = "";
+					 text = this.message + " ";
+					 return text;
+				 }
 				 this.item = "";
-			
 			}
 			
 			// Location Instances
-			var Loc0_smth = new Locale();
+			var Loc0_smth = new locale();
 			Loc0_smth.id = 0;
 			Loc0_smth.name = "mansion's hall";
 			Loc0_smth.message = "room 0";
 			Loc0_smth.item = false;
 			
-		    var Loc1_smth = new Locale();
+			
+		    var Loc1_smth = new locale();
 			Loc1_smth.id = 1;
 			Loc1_smth.name = "dark room";
 			Loc1_smth.message = "room 1";
 			Loc1_smth.item = false;
 			
-			var Loc2_smth = new Locale();
+			
+			var Loc2_smth = new locale();
 			Loc2_smth.id = 2;
 			Loc2_smth.name = "living room";
 			Loc2_smth.message = "room 2";
 			Loc2_smth.item = false;
 			
-			var Loc3_smth = new Locale();
+			
+			var Loc3_smth = new locale();
 			Loc3_smth.id = 3;
 			Loc3_smth.name = "piano room";
 			Loc3_smth.message = "room 3";
 			Loc3_smth.item = true;
 			
-			var Loc4_smth = new Locale();
+			var Loc4_smth = new locale();
 			Loc4_smth.id = 4;
 			Loc4_smth.name = "kitchen";
 			Loc4_smth.message = "room 4";
 			Loc4_smth.item = false;
 			
-			var Loc5_smth = new Locale();
+			var Loc5_smth = new locale();
 			Loc5_smth.id = 5;
 			Loc5_smth.name = "dining";
 			Loc5_smth.message = "room 5";
 			Loc5_smth.item = false;
 			
-			var Loc6_smth = new Locale();
+			var Loc6_smth = new locale();
 			Loc6_smth.id = 6;
 			Loc6_smth.name = "small corridor";
 			Loc6_smth.message = "room 6";
 			Loc6_smth.item = false;
 			
-			var Loc7_smth = new Locale();
+			var Loc7_smth = new locale();
 			Loc7_smth.id = 7;
 			Loc7_smth.name = "bedroom";
 			Loc7_smth.message = "room 7";
 			Loc7_smth.item = false;
 			
-			var Loc8_smth = new Locale();
+			var Loc8_smth = new locale();
 			Loc8_smth.id = 8;
 			Loc8_smth.name = "large hallway";
 			Loc8_smth.message = "room 8";
 			Loc8_smth.item = false;
 			
-			var Loc9_smth = new Locale();
+			var Loc9_smth = new locale();
 			Loc9_smth.id = 9;
 			Loc9_smth.name = "stairs";
 			Loc9_smth.message = "room 9";
 			Loc9_smth.item = false;
 			
-			var Loc10_smth = new Locale();
+			var Loc10_smth = new locale();
 			Loc10_smth.id = 10;
 			Loc10_smth.name = "library";
 			Loc10_smth.message = "room 10";
@@ -120,11 +127,11 @@
 		    function btn_go_North() {
 		    if (curLoc === 3) {
 			    curLoc = 0;	
-                updateDisplay();			
+                updateDisplay(Loc0_smth.message);			
 			   } else {
 			       if (curLoc === 0) {
 				       curLoc = 1;	
-                       updateDisplay();					   
+                       updateDisplay(Loc1_smth.message);					   
 			        } else {
 					    if (curLoc === 4) {
 				            curLoc = 5;	
@@ -299,7 +306,10 @@
 			               }
 		            }
 		  
-		
+		    function updateDisplay() {
+			         checkScore();
+		             dspScore();
+			}
 		  		 
 		  		  		  
 		    function navigationError() {		          
@@ -374,7 +384,7 @@
 		  //utility functions
 		   function presentMessage(message) {
 			   var target = document.getElementById("mainText");
-               target.value = locArray[curLoc].name + target.value;
+               target.value = message + "\n\n" + target.value;
             }	
 			
 			function takeButtonVisibility() {
