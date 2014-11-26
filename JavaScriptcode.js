@@ -3,7 +3,7 @@
 			var score = 0;	
 			var inventory = "";
 			// global array for locations
-           /* var locArray = [];
+            var locArray = [];
 			    locArray[0] = Loc0_smth,
 				locArray[1] = Loc1_smth,
 				locArray[2] = Loc2_smth,			
@@ -15,7 +15,7 @@
 				locArray[8] = Loc8_smth,
 				locArray[9] = Loc9_smth,
 				locArray[10] = Loc10_smth
-	    */
+	    
      		var hasVisitedRoom0 = false;
 		    var hasVisitedRoom1 = false;
 		    var hasVisitedRoom2 = false;
@@ -30,8 +30,7 @@
 			
 		   //initial function
 		   function init() {
-		        localeInstances();
-			    updateDisplay();
+			    updateDisplay(Loc0_smth);
 				buttonVisibility();			
 			    document.getElementById("picture").style.visibility = "hidden";
 				takeButtonVisibility();
@@ -41,22 +40,19 @@
 				
 		   
 			// Location prototype	
-			
-			 
-			 function locale() {
+		    function locale() {
 			 this.id = "";
 		     this.name = "";
 			 this.message = "";
 			 this.toString = function() {
-				     var text = document.getElementById("mainText");
-					 text.value = this.message + "\n\n" + text.value;
+				     var text = "";
+					 text = this.message + " " ;
 					 return text;
 				 }
 			 this.item = "";
 			}
 		
 			// Location Instances
-			function localeInstances() {
 			var Loc0_smth = new locale();
 			Loc0_smth.id = 0;
 			Loc0_smth.name = "mansion's hall";
@@ -126,31 +122,31 @@
 			Loc10_smth.message = "room 10";
 			Loc10_smth.item = false;
 			
-        }
+           //navigation functions
 		    function btn_go_North() {
 		    if (curLoc === 3) {
 			    curLoc = 0;               
-                updateDisplay();			
+                updateDisplay(Loc0_smth);			
 			   } else {
 			       if (curLoc === 0) {
 				       curLoc = 1;	
-                       updateDisplay();					   
+                       updateDisplay(Loc1_smth);					   
 			        } else {
 					    if (curLoc === 4) {
 				            curLoc = 5;	
-                             updateDisplay();
+                             updateDisplay(Loc5_smth);
 						 } else {
 							  if (curLoc === 5) {
 				                  curLoc = 6;	
-                                  updateDisplay();
+                                  updateDisplay(Loc6_smth);
 							    } else {
 					                if (curLoc === 8) {
 				                        curLoc = 7;	
-                                        updateDisplay();
+                                        updateDisplay(Lo7_smth);
 						              } else {
 							               if (curLoc === 10) {
 				                               curLoc = 8;	
-                                               updateDisplay();
+                                               updateDisplay(Loc8_smth);
 							                 } else {
 					                             navigationError();
 											}
@@ -165,27 +161,27 @@
 		    function btn_go_South() {
 			    if (curLoc === 1) {
 			        curLoc = 0;	
-                    updateDisplay();
+                    updateDisplay(Loc0_smth);
 			     } else {
 			          if (curLoc === 0) {
 				          curLoc = 3;
-                          updateDisplay();				  
+                          updateDisplay(Loc3_smth);				  
 				     } else {
 					     if (curLoc === 6) {
 				             curLoc = 5;	
-                             updateDisplay();
+                             updateDisplay(Loc5_smth);
 						 } else {
 							  if (curLoc === 5) {
 				                  curLoc = 4;	
-                                  updateDisplay();
+                                  updateDisplay(Loc4_smth);
 							    } else {
 					                if (curLoc === 7) {
 				                        curLoc = 8;	
-                                        updateDisplay();
+                                        updateDisplay(Loc8_smth);
 						              } else {
 							               if (curLoc === 8) {
 				                               curLoc = 10;	
-                                               updateDisplay();
+                                               updateDisplay(Loc10_smth);
 							                  } else {
 					                             navigationError();
 											}
@@ -200,31 +196,31 @@
 		    function btn_go_West() {
 		      if (curLoc === 4) {
                   curLoc = 0;  
-                  updateDisplay();		  
+                  updateDisplay(Loc0_smth);		  
 			      } else {
 			           if (curLoc === 0) {
 				           curLoc = 2;	
-                           updateDisplay();					   
+                           updateDisplay(Loc2_smth);					   
 				        } else {
 						    if (curLoc === 7) {
 				                curLoc = 6;	
-                                updateDisplay();
+                                updateDisplay(Loc6_smth);
 						    } else {
 							    if (curLoc === 6) {
 				                    curLoc = 1;	
-                                    updateDisplay();
+                                    updateDisplay(Loc1_smth);
 							     } else {
 							          if (curLoc === 8) {
 				                          curLoc = 5;	
-                                          updateDisplay();
+                                          updateDisplay(Loc5_smth);
 							           } else {
 					                        if (curLoc === 10) {
 				                                curLoc = 4;	
-                                                updateDisplay();
+                                                updateDisplay(Loc4_smth);
 						                     } else {
 							                      if (curLoc === 9) {
 				                                      curLoc = 8;	
-                                                      updateDisplay();
+                                                      updateDisplay(Loc8_smth);
 							                       } else {
 					                                     navigationError();
 													}
@@ -241,31 +237,31 @@
 		    function btn_go_East(){
 		     if (curLoc === 2) {
 			     curLoc = 0;
-                 updateDisplay();				 
+                 updateDisplay(Loc0_smth);				 
 			     } else {
 			          if (curLoc === 0) {
 			              curLoc = 4;
-                          updateDisplay();		          
+                          updateDisplay(Loc4_smth);		          
 			            } else {
 						      if (curLoc === 1) {
 				                  curLoc = 6;	
-                                  updateDisplay();
+                                  updateDisplay(Loc6_smth);
 							  } else {
 							       if (curLoc === 6) {
 				                       curLoc = 7;	
-                                       updateDisplay();
+                                       updateDisplay(Loc7_smth);
 									} else {
 							            if (curLoc === 5) {
 				                            curLoc = 8;	
-                                            updateDisplay();
+                                            updateDisplay(Loc8_smth);
 									    } else {
 							                if (curLoc === 4) {
 				                                curLoc = 10;	
-                                                updateDisplay();
+                                                updateDisplay(Loc10_smth);
 									         } else {
 							                     if (curLoc === 8) {
 				                                     curLoc = 9;	
-                                                     updateDisplay();
+                                                     updateDisplay(Loc9_smth);
 									              } else {
 					                                  navigationError();
 												}
@@ -310,8 +306,10 @@
 			               }
 		            }
 		  
-		    function updateDisplay() {
-			         locale();
+		    function updateDisplay(msg) {
+			         var msg = msg;
+					 var userCommand = document.getElementById("mainText");
+					 userCommand.value = msg + "\n\n" + userCommand.value;
 			         checkScore();
 		             dspScore();
 			}
@@ -388,7 +386,6 @@
 		   
 		  //utility functions
 		   function presentMessage(message) {
-		       //var message = message;
 			   var target = document.getElementById("mainText");
                target.value = message + "\n\n" + target.value;
             }	
