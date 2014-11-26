@@ -15,9 +15,7 @@
 				locArray[8] = Loc8_smth,
 				locArray[9] = Loc9_smth,
 				locArray[10] = Loc10_smth
-				
-			
-		   
+	   
 		    var hasVisitedRoom0 = false;
 		    var hasVisitedRoom1 = false;
 		    var hasVisitedRoom2 = false;
@@ -46,8 +44,8 @@
 				 this.name = "";
 				 this.message = "";
 			     this.toString = function() {
-				     var text = "";
-					 text = this.message + " ";
+				     var text = document.getElementById("mainText");
+					 text.value = this.message + "\n\n" + text.value;
 					 return text;
 				 }
 				 this.item = "";
