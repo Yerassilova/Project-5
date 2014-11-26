@@ -3,7 +3,7 @@
 			var score = 0;	
 			var inventory = "";
 			// global array for locations
-			var locArray = [];
+           /* var locArray = [];
 			    locArray[0] = Loc0_smth,
 				locArray[1] = Loc1_smth,
 				locArray[2] = Loc2_smth,			
@@ -15,8 +15,8 @@
 				locArray[8] = Loc8_smth,
 				locArray[9] = Loc9_smth,
 				locArray[10] = Loc10_smth
-	   
-		    var hasVisitedRoom0 = false;
+	    */
+     		var hasVisitedRoom0 = false;
 		    var hasVisitedRoom1 = false;
 		    var hasVisitedRoom2 = false;
 		    var hasVisitedRoom3 = false;
@@ -30,28 +30,33 @@
 			
 		   //initial function
 		   function init() {
-				updateDisplay();
+		        localeInstances();
+			    updateDisplay();
 				buttonVisibility();			
 			    document.getElementById("picture").style.visibility = "hidden";
 				takeButtonVisibility();
 				document.getElementById("mainText").readOnly = true;
 				document.getElementById("scoreText").readOnly = true;
-				} 
-						
+			}	
+				
+		   
 			// Location prototype	
-			function locale() {
-			     this.id = "";
-				 this.name = "";
-				 this.message = "";
-			     this.toString = function() {
+			
+			 
+			 function locale() {
+			 this.id = "";
+		     this.name = "";
+			 this.message = "";
+			 this.toString = function() {
 				     var text = document.getElementById("mainText");
 					 text.value = this.message + "\n\n" + text.value;
 					 return text;
 				 }
-				 this.item = "";
+			 this.item = "";
 			}
-			
+		
 			// Location Instances
+			function localeInstances() {
 			var Loc0_smth = new locale();
 			Loc0_smth.id = 0;
 			Loc0_smth.name = "mansion's hall";
@@ -60,12 +65,12 @@
 			
 			
 		    var Loc1_smth = new locale();
-			Loc1_smth.id = 1;
+		    Loc1_smth.id = 1;
 			Loc1_smth.name = "dark room";
 			Loc1_smth.message = "room 1";
 			Loc1_smth.item = false;
 			
-			
+		
 			var Loc2_smth = new locale();
 			Loc2_smth.id = 2;
 			Loc2_smth.name = "living room";
@@ -77,7 +82,7 @@
 			Loc3_smth.id = 3;
 			Loc3_smth.name = "piano room";
 			Loc3_smth.message = "room 3";
-			Loc3_smth.item = true;
+			Loc3_smth.item = false;
 			
 			var Loc4_smth = new locale();
 			Loc4_smth.id = 4;
@@ -121,10 +126,10 @@
 			Loc10_smth.message = "room 10";
 			Loc10_smth.item = false;
 			
-		   //navigation functions
+        }
 		    function btn_go_North() {
 		    if (curLoc === 3) {
-			    curLoc = 0;	
+			    curLoc = 0;               
                 updateDisplay();			
 			   } else {
 			       if (curLoc === 0) {
@@ -272,7 +277,6 @@
 		            }
                   buttonVisibility();					
 		        }
-		    
 
             function txtCommand_keypress(e) {
 				 if (e.which === 13) {
@@ -280,10 +284,11 @@
 					 }
 			}
 		
+		  
 			function btnGo_click() {             			
                txtCommand.value = txtCommand.value.toLowerCase();				  
 			    if (txtCommand.value === "north" || txtCommand.value === "n") {				
-			        btn_go_North();					
+			       btn_go_North();					
 			       } else {
 			           if (txtCommand.value === "south" || txtCommand.value === "s") {
 				           btn_go_South();
@@ -306,6 +311,7 @@
 		            }
 		  
 		    function updateDisplay() {
+			         locale();
 			         checkScore();
 		             dspScore();
 			}
@@ -382,6 +388,7 @@
 		   
 		  //utility functions
 		   function presentMessage(message) {
+		       //var message = message;
 			   var target = document.getElementById("mainText");
                target.value = message + "\n\n" + target.value;
             }	
