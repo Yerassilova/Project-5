@@ -1,6 +1,8 @@
-            var curLoc = 0;
+            // global variable and arrays
+			var curLoc = getToNextLoc(dir);
 			var score = 0;	
 			var inventory = "";
+			// global array for locations
 			var locArray = [];
 			    locArray[0] = Loc0_smth,
 				locArray[1] = Loc1_smth,
@@ -14,8 +16,20 @@
 				locArray[9] = Loc9_smth,
 				locArray[10] = Loc10_smth
 				
-				
-						
+			// global array for navigation
+			var navigation = new Array(      /*N   S   E   W*/
+			                          /*0*/  [ 1,  3,  4,  2] 
+									  /*1*/  [-1,  0,  6, -1]
+									  /*2*/  [-1, -1,  0, -1]
+									  /*3*/  [ 0, -1, -1, -1]
+									  /*4*/  [ 5, -1, 10,  0]
+									  /*5*/  [ 6,  4,  8, -1]
+									  /*6*/  [-1,  5,  7,  1]
+									  /*7*/  [-1,  8, -1,  6]
+									  /*8*/  [ 7, 10,  9,  5]
+									  /*9*/  [-1, -1, -1,  8]
+									 /*10*/  [ 8, -1, -1,  4]
+			)						
 		   
 		    var hasVisitedRoom0 = false;
 		    var hasVisitedRoom1 = false;
@@ -31,13 +45,27 @@
 			
 		   //initial function
 		   function init() {
-				updateDisplay(Loc0_smth.message);
+				locale();
 				buttonVisibility();			
 			    document.getElementById("picture").style.visibility = "hidden";
 				takeButtonVisibility();
 				document.getElementById("mainText").readOnly = true;
 				document.getElementById("scoreText").readOnly = true;
 				} 
+				
+			// navigation functions
+			function getToNextLoc(dir) {
+			    var newLoc = curLoc;
+				var destination = nav [curLoc] [dir];
+				if (destination === -1) {
+				    updateDisplay("You cannot go that way");
+				} else {
+				    newLoc = destination;
+					}
+            return newLoc;				
+			}
+			
+			
 			// Location prototype	
 			function locale() {
 			     this.id = "";
@@ -121,159 +149,7 @@
 			Loc10_smth.message = "room 10";
 			Loc10_smth.item = false;
 			
-			
-			   
-		   //navigation functions
-		    function btn_go_North() {
-		    if (curLoc === 3) {
-			    curLoc = 0;	
-                updateDisplay(Loc0_smth.message);			
-			   } else {
-			       if (curLoc === 0) {
-				       curLoc = 1;	
-                       updateDisplay(Loc1_smth.message);					   
-			        } else {
-					    if (curLoc === 4) {
-				            curLoc = 5;	
-                             updateDisplay();
-						 } else {
-							  if (curLoc === 5) {
-				                  curLoc = 6;	
-                                  updateDisplay();
-							    } else {
-					                if (curLoc === 8) {
-				                        curLoc = 7;	
-                                        updateDisplay();
-						              } else {
-							               if (curLoc === 10) {
-				                               curLoc = 8;	
-                                               updateDisplay();
-							                 } else {
-					                             navigationError();
-											}
-										}
-									}
-					             }		
-					        }
-					  }
-					buttonVisibility();
-			     } 
-
-		    function btn_go_South() {
-			    if (curLoc === 1) {
-			        curLoc = 0;	
-                    updateDisplay();
-			     } else {
-			          if (curLoc === 0) {
-				          curLoc = 3;
-                          updateDisplay();				  
-				     } else {
-					     if (curLoc === 6) {
-				             curLoc = 5;	
-                             updateDisplay();
-						 } else {
-							  if (curLoc === 5) {
-				                  curLoc = 4;	
-                                  updateDisplay();
-							    } else {
-					                if (curLoc === 7) {
-				                        curLoc = 8;	
-                                        updateDisplay();
-						              } else {
-							               if (curLoc === 8) {
-				                               curLoc = 10;	
-                                               updateDisplay();
-							                  } else {
-					                             navigationError();
-											}
-										}
-									}
-					             }		
-					        }
-					    }	
-                     buttonVisibility();						
-		           }
 		    
-		    function btn_go_West() {
-		      if (curLoc === 4) {
-                  curLoc = 0;  
-                  updateDisplay();		  
-			      } else {
-			           if (curLoc === 0) {
-				           curLoc = 2;	
-                           updateDisplay();					   
-				        } else {
-						    if (curLoc === 7) {
-				                curLoc = 6;	
-                                updateDisplay();
-						    } else {
-							    if (curLoc === 6) {
-				                    curLoc = 1;	
-                                    updateDisplay();
-							     } else {
-							          if (curLoc === 8) {
-				                          curLoc = 5;	
-                                          updateDisplay();
-							           } else {
-					                        if (curLoc === 10) {
-				                                curLoc = 4;	
-                                                updateDisplay();
-						                     } else {
-							                      if (curLoc === 9) {
-				                                      curLoc = 8;	
-                                                      updateDisplay();
-							                       } else {
-					                                     navigationError();
-													}
-												}
-										    }
-									  }
-								 }
-						   }
-					            		
-				    }
-                  buttonVisibility();					
-		      }			 
-			         
-		    function btn_go_East(){
-		     if (curLoc === 2) {
-			     curLoc = 0;
-                 updateDisplay();				 
-			     } else {
-			          if (curLoc === 0) {
-			              curLoc = 4;
-                          updateDisplay();		          
-			            } else {
-						      if (curLoc === 1) {
-				                  curLoc = 6;	
-                                  updateDisplay();
-							  } else {
-							       if (curLoc === 6) {
-				                       curLoc = 7;	
-                                       updateDisplay();
-									} else {
-							            if (curLoc === 5) {
-				                            curLoc = 8;	
-                                            updateDisplay();
-									    } else {
-							                if (curLoc === 4) {
-				                                curLoc = 10;	
-                                                updateDisplay();
-									         } else {
-							                     if (curLoc === 8) {
-				                                     curLoc = 9;	
-                                                     updateDisplay();
-									              } else {
-					                                  navigationError();
-												}
-											}
-										}
-								   }
-					          }					  
-					     }
-		            }
-                  buttonVisibility();					
-		        }
 
             function txtCommand_keypress(e) {
 				 if (e.which === 13) {
