@@ -1,9 +1,10 @@
             // global variable and arrays
 			var curLoc = 0;
+		
 			var score = 0;	
-			//var inventory = "";
+			var inventory = new Array();
 			// global array for location instances
-            var locArray = [];
+            var locArray = new Array();
 			    locArray[0] = Loc0_smth,
 				locArray[1] = Loc1_smth,
 				locArray[2] = Loc2_smth,			
@@ -16,30 +17,13 @@
 				locArray[9] = Loc9_smth,
 				locArray[10] = Loc10_smth
 				
-			// global array for items and inventory
-			var item = new Array();
-			item[3] = itemMap;
-			item[4] = itemFlashlight;
-			item[6] = itemMusicSheet;
-			
-			var inventory = new Array();
 				
-		   // global array for navigation 
- 			//var navigation = new Array(    /*N   S   E   W*/ 
-			//                        /*0*/  [ 1,  3,  4,  2]  
-			 //						  /*1*/  [-1,  0,  6, -1] 
-			//						  /*2*/  [-1, -1,  0, -1] 
- 			//						  /*3*/  [ 0, -1, -1, -1] 
- 			//					      /*4*/  [ 5, -1, 10,  0] 
-			//					      /*5*/  [ 6,  4,  8, -1] 
-			//					      /*6*/  [-1,  5,  7,  1] 
-			//				          /*7*/  [-1,  8, -1,  6] 
-			//					      /*8*/  [ 7, 10,  9,  5] 
-			//					      /*9*/  [-1, -1, -1,  8] 
-			//					     /*10*/  [ 8, -1, -1,  4] 
-		     //               )		 
-
-	    
+			// global array for items and inventory
+			var items = new Array();
+			    items[3] = itemMap;
+			    items[4] = itemFlashlight;
+			    items[6] = itemMusicSheet;
+    
      		var hasVisitedRoom0 = false;
 		    var hasVisitedRoom1 = false;
 		    var hasVisitedRoom2 = false;
@@ -61,26 +45,27 @@
 				document.getElementById("mainText").readOnly = true;
 				document.getElementById("scoreText").readOnly = true;
 			}	
-				
 		   
 			// Location prototype	
 		    function locale() {
 			 this.id = "";
 		     this.name = "";
 			 this.message = "";
+			 this.hasItem = "";
+			 this.item = function () {
+			     if (this.hasItem && !items.isTaken) {
+				    return items.message;
+				 } else {
+				    return "";
+				}
+			 } 						
 			 this.toString = function() {
 				     var text = "";
-					 text = this.message + " " ;
+					 text = this.message + " " + this.item;
 					 return text;
 				 }
-			 this.hasItem = function() {
-			      if (this.hasItem = true) {
-				     return item[locArray].message;
-					} else {
-					  return "";
-					  }
+			 
 			 }
-			}
 		
 			  //Inventory prototype
 			function Item() {
@@ -88,32 +73,30 @@
 			  this.name = "";
 			  this.message = "";
 			  this.isTaken = "";
-			}
-			
-			//Inventory instances
-				var itemMap = new Item();
-				itemMap.id = 3;
+			  }
+                var itemMap = new Item();
+				itemMap.curLoc = 3;
 				itemMap.name = "Map";
 				itemMap.message = "There is a map on the table.";
-				itemMap.isTaken = false;
+			    itemMap.isTaken = false;
 
 				var itemFlashlight = new Item();
-				itemFlashlight.id = 4;
-				itemFlashlight.name = "Wrench";
+				itemFlashlight.curLoc = 4;
+				itemFlashlight.name = "Flashlight";
 				itemFlashlight.message = "There is a flashlight.";
 				itemFlashlight.isTaken = false;
 
 				var itemMusicSheet = new Item();
-				itemMusicSheet.id = 5;
-				itemMusicSheet.name = "Key";
+				itemMusicSheet.curLoc = 6;
+				itemMusicSheet.name = "Music Sheet";
 				itemMusicSheet.message = "There is a music sheet on the floor.";
 				itemMusicSheet.isTaken = false;
 				
 				
 			function btn_take() {
 				if (curLoc === 3) {
-				    Loc3_smth.hasItem = false;
-				   // inventory = inventory + " map ";
+				    itemMap.isTaken = true;
+				    //inventory = inventory + " map ";
 					document.getElementById("picture").style.visibility = "visible";					
 					message = "You have taken the map of the mansion.";
                     checkScore();
@@ -121,7 +104,7 @@
                     document.getElementById("takeButton").disabled = true;					
 				 } else {			 
 			        if (curLoc === 4) {
-					    Loc4_smth.hasItem = false;
+					    itemFlashlight.isTaken = true;
 				        //inventory = inventory  + " flashlight ";
 					    message = "You have taken a flashlight.";	
                         checkScore();
@@ -129,7 +112,7 @@
                         document.getElementById("takeButton").disabled = true;	
                       } else {
                           if (curLoc === 6) {
-						      Loc6_smth.hasItem = false;
+						      itemMusicSheet.isTaken = true;
 				              //inventory = inventory + " Music Sheet ";									
 					          message = "You have taken Music Sheet.";
                               checkScore();							  
@@ -145,10 +128,12 @@
 						
 		
 			// Location Instances
+			
 			var Loc0_smth = new locale();
 			Loc0_smth.id = 0;
 			Loc0_smth.name = "mansion's hall";
 			Loc0_smth.message = "room 0";
+			Loc0_smth.item = "";
 			Loc0_smth.hasItem = false;
 			
 			
@@ -156,6 +141,7 @@
 		    Loc1_smth.id = 1;
 			Loc1_smth.name = "dark room";
 			Loc1_smth.message = "room 1";
+			Loc1_smth.item = "";
 			Loc1_smth.hasItem = false;
 			
 		
@@ -163,6 +149,7 @@
 			Loc2_smth.id = 2;
 			Loc2_smth.name = "living room";
 			Loc2_smth.message = "room 2";
+			Loc2_smth.item = "";
 			Loc2_smth.hasItem = false;
 			
 			
@@ -171,47 +158,55 @@
 			Loc3_smth.name = "piano room";
 			Loc3_smth.message = "room 3";
 			Loc3_smth.hasItem = true;
+			Loc3_smth.item = itemMap;
 			
 			var Loc4_smth = new locale();
 			Loc4_smth.id = 4;
 			Loc4_smth.name = "kitchen";
 			Loc4_smth.message = "room 4";
+			Loc4_smth.item = itemFlashlight;
 			Loc4_smth.hasItem = true;
 			
 			var Loc5_smth = new locale();
 			Loc5_smth.id = 5;
 			Loc5_smth.name = "dining";
 			Loc5_smth.message = "room 5";
+			Loc5_smth.item = "";
 			Loc5_smth.hasItem = false;
 			
 			var Loc6_smth = new locale();
 			Loc6_smth.id = 6;
 			Loc6_smth.name = "small corridor";
 			Loc6_smth.message = "room 6";
+			Loc6_smth.item = itemMusicSheet;
 			Loc6_smth.hasItem = true;
 			
 			var Loc7_smth = new locale();
 			Loc7_smth.id = 7;
 			Loc7_smth.name = "bedroom";
 			Loc7_smth.message = "room 7";
+			Loc7_smth.item = "";
 			Loc7_smth.hasItem = false;
 			
 			var Loc8_smth = new locale();
 			Loc8_smth.id = 8;
 			Loc8_smth.name = "large hallway";
 			Loc8_smth.message = "room 8";
+			Loc8_smth.item = "";
 			Loc8_smth.hasItem = false;
 			
 			var Loc9_smth = new locale();
 			Loc9_smth.id = 9;
 			Loc9_smth.name = "stairs";
 			Loc9_smth.message = "room 9";
+			Loc9_smth.item = "";
 			Loc9_smth.hasItem = false;
 			
 			var Loc10_smth = new locale();
 			Loc10_smth.id = 10;
 			Loc10_smth.name = "library";
 			Loc10_smth.message = "room 10";
+			Loc10_smth.item = "";
 			Loc10_smth.hasItem = false;
 			
            //navigation functions
@@ -234,7 +229,7 @@
 							    } else {
 					                if (curLoc === 8) {
 				                        curLoc = 7;	
-                                        updateDisplay(Lo7_smth);
+                                        updateDisplay(Loc7_smth);
 						              } else {
 							               if (curLoc === 10) {
 				                               curLoc = 8;	
