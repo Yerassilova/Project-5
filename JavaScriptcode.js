@@ -1,8 +1,8 @@
             // global variable and arrays
 			var curLoc = 0;
 			var score = 0;	
-			var inventory = "";
-			// global array for locations
+			//var inventory = "";
+			// global array for location instances
             var locArray = [];
 			    locArray[0] = Loc0_smth,
 				locArray[1] = Loc1_smth,
@@ -15,6 +15,30 @@
 				locArray[8] = Loc8_smth,
 				locArray[9] = Loc9_smth,
 				locArray[10] = Loc10_smth
+				
+			// global array for items and inventory
+			var item = new Array();
+			item[3] = itemMap;
+			item[4] = itemFlashlight;
+			item[6] = itemMusicSheet;
+			
+			var inventory = new Array();
+				
+		   // global array for navigation 
+ 			//var navigation = new Array(    /*N   S   E   W*/ 
+			//                        /*0*/  [ 1,  3,  4,  2]  
+			 //						  /*1*/  [-1,  0,  6, -1] 
+			//						  /*2*/  [-1, -1,  0, -1] 
+ 			//						  /*3*/  [ 0, -1, -1, -1] 
+ 			//					      /*4*/  [ 5, -1, 10,  0] 
+			//					      /*5*/  [ 6,  4,  8, -1] 
+			//					      /*6*/  [-1,  5,  7,  1] 
+			//				          /*7*/  [-1,  8, -1,  6] 
+			//					      /*8*/  [ 7, 10,  9,  5] 
+			//					      /*9*/  [-1, -1, -1,  8] 
+			//					     /*10*/  [ 8, -1, -1,  4] 
+		     //               )		 
+
 	    
      		var hasVisitedRoom0 = false;
 		    var hasVisitedRoom1 = false;
@@ -49,78 +73,146 @@
 					 text = this.message + " " ;
 					 return text;
 				 }
-			 this.item = "";
+			 this.hasItem = function() {
+			      if (this.hasItem = true) {
+				     return item[locArray].message;
+					} else {
+					  return "";
+					  }
+			 }
 			}
+		
+			  //Inventory prototype
+			function Item() {
+			  this.id = "";
+			  this.name = "";
+			  this.message = "";
+			  this.isTaken = "";
+			}
+			
+			//Inventory instances
+				var itemMap = new Item();
+				itemMap.id = 3;
+				itemMap.name = "Map";
+				itemMap.message = "There is a map on the table.";
+				itemMap.isTaken = false;
+
+				var itemFlashlight = new Item();
+				itemFlashlight.id = 4;
+				itemFlashlight.name = "Wrench";
+				itemFlashlight.message = "There is a flashlight.";
+				itemFlashlight.isTaken = false;
+
+				var itemMusicSheet = new Item();
+				itemMusicSheet.id = 5;
+				itemMusicSheet.name = "Key";
+				itemMusicSheet.message = "There is a music sheet on the floor.";
+				itemMusicSheet.isTaken = false;
+				
+				
+			function btn_take() {
+				if (curLoc === 3) {
+				    Loc3_smth.hasItem = false;
+				   // inventory = inventory + " map ";
+					document.getElementById("picture").style.visibility = "visible";					
+					message = "You have taken the map of the mansion.";
+                    checkScore();
+		            dspScore();	
+                    document.getElementById("takeButton").disabled = true;					
+				 } else {			 
+			        if (curLoc === 4) {
+					    Loc4_smth.hasItem = false;
+				        //inventory = inventory  + " flashlight ";
+					    message = "You have taken a flashlight.";	
+                        checkScore();
+		                dspScore();	
+                        document.getElementById("takeButton").disabled = true;	
+                      } else {
+                          if (curLoc === 6) {
+						      Loc6_smth.hasItem = false;
+				              //inventory = inventory + " Music Sheet ";									
+					          message = "You have taken Music Sheet.";
+                              checkScore();							  
+		                      dspScore();	
+                              document.getElementById("takeButton").disabled = true;						 
+			                } else {
+					             message = "There is nothing to take in this room.";
+						 } 
+					 }
+			    }
+			  presentMessage(message);
+			}
+						
 		
 			// Location Instances
 			var Loc0_smth = new locale();
 			Loc0_smth.id = 0;
 			Loc0_smth.name = "mansion's hall";
 			Loc0_smth.message = "room 0";
-			Loc0_smth.item = false;
+			Loc0_smth.hasItem = false;
 			
 			
 		    var Loc1_smth = new locale();
 		    Loc1_smth.id = 1;
 			Loc1_smth.name = "dark room";
 			Loc1_smth.message = "room 1";
-			Loc1_smth.item = false;
+			Loc1_smth.hasItem = false;
 			
 		
 			var Loc2_smth = new locale();
 			Loc2_smth.id = 2;
 			Loc2_smth.name = "living room";
 			Loc2_smth.message = "room 2";
-			Loc2_smth.item = false;
+			Loc2_smth.hasItem = false;
 			
 			
 			var Loc3_smth = new locale();
 			Loc3_smth.id = 3;
 			Loc3_smth.name = "piano room";
 			Loc3_smth.message = "room 3";
-			Loc3_smth.item = false;
+			Loc3_smth.hasItem = true;
 			
 			var Loc4_smth = new locale();
 			Loc4_smth.id = 4;
 			Loc4_smth.name = "kitchen";
 			Loc4_smth.message = "room 4";
-			Loc4_smth.item = false;
+			Loc4_smth.hasItem = true;
 			
 			var Loc5_smth = new locale();
 			Loc5_smth.id = 5;
 			Loc5_smth.name = "dining";
 			Loc5_smth.message = "room 5";
-			Loc5_smth.item = false;
+			Loc5_smth.hasItem = false;
 			
 			var Loc6_smth = new locale();
 			Loc6_smth.id = 6;
 			Loc6_smth.name = "small corridor";
 			Loc6_smth.message = "room 6";
-			Loc6_smth.item = false;
+			Loc6_smth.hasItem = true;
 			
 			var Loc7_smth = new locale();
 			Loc7_smth.id = 7;
 			Loc7_smth.name = "bedroom";
 			Loc7_smth.message = "room 7";
-			Loc7_smth.item = false;
+			Loc7_smth.hasItem = false;
 			
 			var Loc8_smth = new locale();
 			Loc8_smth.id = 8;
 			Loc8_smth.name = "large hallway";
 			Loc8_smth.message = "room 8";
-			Loc8_smth.item = false;
+			Loc8_smth.hasItem = false;
 			
 			var Loc9_smth = new locale();
 			Loc9_smth.id = 9;
 			Loc9_smth.name = "stairs";
 			Loc9_smth.message = "room 9";
-			Loc9_smth.item = false;
+			Loc9_smth.hasItem = false;
 			
 			var Loc10_smth = new locale();
 			Loc10_smth.id = 10;
 			Loc10_smth.name = "library";
 			Loc10_smth.message = "room 10";
-			Loc10_smth.item = false;
+			Loc10_smth.hasItem = false;
 			
            //navigation functions
 		    function btn_go_North() {
@@ -324,7 +416,7 @@
 		   }
 	   		
 	    
-			function btn_take() {
+		/*	function btn_take() {
 				if (curLoc === 3 && inventory.indexOf("map") < 0) {
 				    inventory = inventory + " map ";
 					document.getElementById("picture").style.visibility = "visible";					
@@ -353,7 +445,7 @@
 			    }
 			  presentMessage(message);
 			}
-				  		
+				*/  		
 	       /*
 		   function items() {
 		     var item1 = new map();
