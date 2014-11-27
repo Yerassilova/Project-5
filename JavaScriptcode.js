@@ -128,7 +128,7 @@
 									inventory.push(itemBook.name);							  
 									message = "You have taken " + itemBook.name + "!";
 									checkScore();							  
-									dspScore();	
+									dspScore();									
 									document.getElementById("takeButton").disabled = true;							  
 			                    } else {
 					                  message = "There is nothing to take in this room.";
@@ -457,12 +457,7 @@
 						        }
 						}
 			}
-						
-                    
-                
-            			
-
-		   function buttonVisibility() {
+function buttonVisibility() {
 		     switch(curLoc) {
 			    case 0: document.getElementById("northBtn").disabled = false;
 			            document.getElementById("southBtn").disabled = false;
@@ -514,7 +509,7 @@
 			            document.getElementById("southBtn").disabled = false;
 						document.getElementById("eastBtn").disabled = false;
 						document.getElementById("westBtn").disabled = false;
-						document.getElementById("takeButton").disabled = true;
+						takeButtonVisibility();
 						break;
 				case 9: document.getElementById("northBtn").disabled = true;
 			            document.getElementById("southBtn").disabled = true;
@@ -535,6 +530,7 @@
 						document.getElementById("takeButton").disabled = true;
 		     }
 		   }
+			
 			
 		  // functions for keeping and showing score!
 		   function checkScore() {
