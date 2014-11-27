@@ -1,7 +1,7 @@
             // global variable and arrays
-			var curLoc = 0;
-		
-			var score = 0;	
+			var curLoc = 0;		
+			var score = 0;
+			//global array for accumulated inventory (it is empty as you start playing...)
 			var inventory = new Array();
 			// global array for location instances
             var locArray = new Array();
@@ -16,13 +16,13 @@
 				locArray[8] = Loc8_smth,
 				locArray[9] = Loc9_smth,
 				locArray[10] = Loc10_smth
-				
-				
+			
 			// global array for items and inventory
 			var items = new Array();
 			    items[3] = itemMap;
 			    items[4] = itemFlashlight;
 			    items[6] = itemMusicSheet;
+				items[8] = itemBook;
     
      		var hasVisitedRoom0 = false;
 		    var hasVisitedRoom1 = false;
@@ -53,18 +53,13 @@
 			 this.message = "";
 			 this.hasItem = "";
 			 this.item = function () {
-			     if (this.hasItem && !items.isTaken) {
-				    return items.message;
-				 } else {
-				    return "";
-				}
-			 } 						
+			 
+			 }
 			 this.toString = function() {
 				     var text = "";
 					 text = this.message + " " + this.item;
 					 return text;
-				 }
-			 
+				 }			 
 			 }
 		
 			  //Inventory prototype
@@ -92,58 +87,72 @@
 				itemMusicSheet.message = "There is a music sheet on the floor.";
 				itemMusicSheet.isTaken = false;
 				
-				
+				var itemBook = new Item();
+				itemBook.curLoc = 8;
+				itemBook.name = "Book";
+				itemBook.message = "Wow, there is a book in front of you!";
+				itemBook.isTaken = false;
+								
 			function btn_take() {
-				if (curLoc === 3) {
+				if (curLoc === 3 && !itemMap.isTaken) {
 				    itemMap.isTaken = true;
-				    //inventory = inventory + " map ";
+					Loc3_smth.item = "";
+					inventory.push(itemMap.name);
 					document.getElementById("picture").style.visibility = "visible";					
-					message = "You have taken the map of the mansion.";
+					message = "You have taken the " + itemMap.name + "!";
                     checkScore();
 		            dspScore();	
                     document.getElementById("takeButton").disabled = true;					
 				 } else {			 
-			        if (curLoc === 4) {
+			        if (curLoc === 4 && !itemFlashlight.isTaken) {
 					    itemFlashlight.isTaken = true;
-				        //inventory = inventory  + " flashlight ";
-					    message = "You have taken a flashlight.";	
+						Loc4_smth.item = "";
+						inventory.push(itemFlashlight.name);
+					    message = "You have taken a " + itemFlashlight.name + "!";	
                         checkScore();
 		                dspScore();	
                         document.getElementById("takeButton").disabled = true;	
                       } else {
-                          if (curLoc === 6) {
+                          if (curLoc === 6 && !itemMusicSheet.isTaken) {
 						      itemMusicSheet.isTaken = true;
-				              //inventory = inventory + " Music Sheet ";									
-					          message = "You have taken Music Sheet.";
+							  Loc6_smth.item = "";		
+                              inventory.push(itemMusicSheet.name);							  
+					          message = "You have taken " + itemMusicSheet.name + "!";
                               checkScore();							  
 		                      dspScore();	
-                              document.getElementById("takeButton").disabled = true;						 
-			                } else {
-					             message = "There is nothing to take in this room.";
-						 } 
-					 }
-			    }
+                              document.getElementById("takeButton").disabled = true;
+                            } else {
+                                if (curLoc === 8 && !itemBook.isTaken) {
+									itemBook.isTaken = true;
+									Loc8_smth.item = "";		
+									inventory.push(itemBook.name);							  
+									message = "You have taken " + itemBook.name + "!";
+									checkScore();							  
+									dspScore();	
+									document.getElementById("takeButton").disabled = true;							  
+			                    } else {
+					                  message = "There is nothing to take in this room.";
+						            } 
+					          }
+			             }
+				    }
 			  presentMessage(message);
 			}
-						
-		
-			// Location Instances
-			
+								
+			// Location Instances			
 			var Loc0_smth = new locale();
 			Loc0_smth.id = 0;
 			Loc0_smth.name = "mansion's hall";
 			Loc0_smth.message = "room 0";
 			Loc0_smth.item = "";
 			Loc0_smth.hasItem = false;
-			
-			
+						
 		    var Loc1_smth = new locale();
 		    Loc1_smth.id = 1;
 			Loc1_smth.name = "dark room";
 			Loc1_smth.message = "room 1";
 			Loc1_smth.item = "";
 			Loc1_smth.hasItem = false;
-			
 		
 			var Loc2_smth = new locale();
 			Loc2_smth.id = 2;
@@ -152,19 +161,18 @@
 			Loc2_smth.item = "";
 			Loc2_smth.hasItem = false;
 			
-			
 			var Loc3_smth = new locale();
 			Loc3_smth.id = 3;
 			Loc3_smth.name = "piano room";
 			Loc3_smth.message = "room 3";
 			Loc3_smth.hasItem = true;
-			Loc3_smth.item = itemMap;
+			Loc3_smth.item = itemMap.message;
 			
 			var Loc4_smth = new locale();
 			Loc4_smth.id = 4;
 			Loc4_smth.name = "kitchen";
 			Loc4_smth.message = "room 4";
-			Loc4_smth.item = itemFlashlight;
+			Loc4_smth.item = itemFlashlight.message;
 			Loc4_smth.hasItem = true;
 			
 			var Loc5_smth = new locale();
@@ -178,7 +186,7 @@
 			Loc6_smth.id = 6;
 			Loc6_smth.name = "small corridor";
 			Loc6_smth.message = "room 6";
-			Loc6_smth.item = itemMusicSheet;
+			Loc6_smth.item = itemMusicSheet.message;
 			Loc6_smth.hasItem = true;
 			
 			var Loc7_smth = new locale();
@@ -192,8 +200,8 @@
 			Loc8_smth.id = 8;
 			Loc8_smth.name = "large hallway";
 			Loc8_smth.message = "room 8";
-			Loc8_smth.item = "";
-			Loc8_smth.hasItem = false;
+			Loc8_smth.item = itemBook.message;
+			Loc8_smth.hasItem = true;
 			
 			var Loc9_smth = new locale();
 			Loc9_smth.id = 9;
@@ -366,8 +374,7 @@
 				     document.getElementById("go").onclick();
 					 }
 			}
-		
-		  
+				  
 			function btnGo_click() {             			
                txtCommand.value = txtCommand.value.toLowerCase();				  
 			    if (txtCommand.value === "north" || txtCommand.value === "n") {				
@@ -400,8 +407,7 @@
 			         checkScore();
 		             dspScore();
 			}
-		  		 
-		  		  		  
+		  		 		  		  		  
 		    function navigationError() {		          
 			  presentMessage("You cannot go that way.");		     		 		        
 		   }
@@ -410,55 +416,9 @@
 		      presentMessage("I don't understand your command.");
 		   }
 	   		
-	    
-		/*	function btn_take() {
-				if (curLoc === 3 && inventory.indexOf("map") < 0) {
-				    inventory = inventory + " map ";
-					document.getElementById("picture").style.visibility = "visible";					
-					message = "You have taken the map of the mansion.";
-                    checkScore();
-		            dspScore();	
-                    document.getElementById("takeButton").disabled = true;					
-				 } else {			 
-			        if (curLoc === 4 && inventory.indexOf("flashlight") < 0) {
-				        inventory = inventory  + " flashlight ";
-					    message = "You have taken a flashlight.";	
-                        checkScore();
-		                dspScore();	
-                        document.getElementById("takeButton").disabled = true;	
-                      } else {
-                          if (curLoc === 6 && inventory.indexOf("Music") < 0) {
-				              inventory = inventory + " Music Sheet ";									
-					          message = "You have taken Music Sheet.";
-                              checkScore();							  
-		                      dspScore();	
-                              document.getElementById("takeButton").disabled = true;						 
-			                } else {
-					             message = "There is nothing to take in this room.";
-						 } 
-					 }
-			    }
-			  presentMessage(message);
-			}
-				*/  		
-	       /*
-		   function items() {
-		     var item1 = new map();
-			 var item2 = new flashlight();
-		   }
-		   
-		   function map() {
-		     this.contents = "map";
-		   } 
-		   
-		    function flashlight() {
-		      this.contents = "flashlight";
-			  
-			}
-		   */
 		   
 		    function showInventory() {	      
-			   message = "Your inventory includes:" + " " + inventory;
+			   message = "Your inventory includes:" + " " + inventory + " ";
 			   presentMessage(message);			  
 		   }
 
@@ -476,37 +436,31 @@
 			   var target = document.getElementById("mainText");
                target.value = message + "\n\n" + target.value;
             }	
-			
+									
 			function takeButtonVisibility() {
-			    if (curLoc === 3) {
-				     if (inventory.indexOf("map") < 0) {
-				         document.getElementById("takeButton").disabled = false;
+			    if (curLoc === 3 && !itemMap.isTaken) {
+				    document.getElementById("takeButton").disabled = false;
 				    } else {
-				         document.getElementById("takeButton").disabled = true;
-				    }
-				
-				} else {
-					if (curLoc === 4) {
-					   if (inventory.indexOf("flashlight") < 0){				        
-						   document.getElementById("takeButton").disabled = false;
-						} else {
-				             document.getElementById("takeButton").disabled = true;
-				        }
-					    
-				} else { 
-                     if (curLoc === 6) {
-					     if (inventory.indexOf("Mus") < 0){				        
-						     document.getElementById("takeButton").disabled = false;
-					      } else { 
-                              document.getElementById("takeButton").disabled = true;
-                            }									                                							  
-				} else {
-				      document.getElementById("takeButton").disabled = true;
-					 }
-				   }
-                }
-            }			
-				   
+					    if (curLoc === 4 && !itemFlashlight.isTaken){				        
+						    document.getElementById("takeButton").disabled = false;
+						  } else { 
+	                           if (curLoc === 6 && !itemMusicSheet.isTaken) {				        
+						           document.getElementById("takeButton").disabled = false;
+					             } else {
+                                      if (curLoc === 8 && !itemBook.isTaken) {				        
+						                  document.getElementById("takeButton").disabled = false;
+					                    } else { 
+                                             document.getElementById("takeButton").disabled = true;
+                                            }		 
+				       
+				                        }
+						        }
+						}
+			}
+						
+                    
+                
+            			
 
 		   function buttonVisibility() {
 		     switch(curLoc) {
