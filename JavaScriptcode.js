@@ -1,21 +1,21 @@
-            // global variable and arrays
+            // global variables and arrays
 			var curLoc = 0;		
 			var score = 0;
 			//global array for accumulated inventory (it is empty as you start playing...)
 			var inventory = new Array();
 			// global array for location instances
             var locArray = new Array();
-			    locArray[0] = Loc0_smth,
-				locArray[1] = Loc1_smth,
-				locArray[2] = Loc2_smth,			
-				locArray[3] = Loc3_smth,
-				locArray[4] = Loc4_smth,
-				locArray[5] = Loc5_smth,
-				locArray[6] = Loc6_smth,
-				locArray[7] = Loc7_smth,
-				locArray[8] = Loc8_smth,
-				locArray[9] = Loc9_smth,
-				locArray[10] = Loc10_smth
+			    locArray[0] = Loc0_mansion_hall,
+				locArray[1] = Loc1_dark_room,
+				locArray[2] = Loc2_living_room,			
+				locArray[3] = Loc3_piano_room,
+				locArray[4] = Loc4_kitchen,
+				locArray[5] = Loc5_dining,
+				locArray[6] = Loc6_small_corridor,
+				locArray[7] = Loc7_bedroom,
+				locArray[8] = Loc8_large_hallway,
+				locArray[9] = Loc9_stairs,
+				locArray[10] = Loc10_library
 			
 			// global array for items and inventory
 			var items = new Array();
@@ -38,7 +38,7 @@
 			
 		   //initial function
 		   function init() {
-			    updateDisplay(Loc0_smth);
+			    updateDisplay(Loc0_mansion_hall);
 				buttonVisibility();			
 			    document.getElementById("picture").style.visibility = "hidden";
 				takeButtonVisibility();
@@ -69,6 +69,7 @@
 			  this.message = "";
 			  this.isTaken = "";
 			  }
+			  //inventory instances
                 var itemMap = new Item();
 				itemMap.curLoc = 3;
 				itemMap.name = "Map";
@@ -96,7 +97,7 @@
 			function btn_take() {
 				if (curLoc === 3 && !itemMap.isTaken) {
 				    itemMap.isTaken = true;
-					Loc3_smth.item = "";
+					Loc3_piano_room.item = "";
 					inventory.push(itemMap.name);
 					document.getElementById("picture").style.visibility = "visible";					
 					message = "You have taken the " + itemMap.name + "!";
@@ -106,7 +107,7 @@
 				 } else {			 
 			        if (curLoc === 4 && !itemFlashlight.isTaken) {
 					    itemFlashlight.isTaken = true;
-						Loc4_smth.item = "";
+						Loc4_kitchen.item = "";
 						inventory.push(itemFlashlight.name);
 					    message = "You have taken a " + itemFlashlight.name + "!";	
                         checkScore();
@@ -115,7 +116,7 @@
                       } else {
                           if (curLoc === 6 && !itemMusicSheet.isTaken) {
 						      itemMusicSheet.isTaken = true;
-							  Loc6_smth.item = "";		
+							  Loc6_small_corridor.item = "";		
                               inventory.push(itemMusicSheet.name);							  
 					          message = "You have taken " + itemMusicSheet.name + "!";
                               checkScore();							  
@@ -124,7 +125,7 @@
                             } else {
                                 if (curLoc === 8 && !itemBook.isTaken) {
 									itemBook.isTaken = true;
-									Loc8_smth.item = "";		
+									Loc8_large_hallway.item = "";		
 									inventory.push(itemBook.name);							  
 									message = "You have taken " + itemBook.name + "!";
 									checkScore();							  
@@ -137,111 +138,126 @@
 			             }
 				    }
 			  presentMessage(message);
-			}
-								
+			}								
 			// Location Instances			
-			var Loc0_smth = new locale();
-			Loc0_smth.id = 0;
-			Loc0_smth.name = "mansion's hall";
-			Loc0_smth.message = "room 0";
-			Loc0_smth.item = "";
-			Loc0_smth.hasItem = false;
+			var Loc0_mansion_hall = new locale();
+			Loc0_mansion_hall.id = 0;
+			Loc0_mansion_hall.name = "mansion's hall";
+			Loc0_mansion_hall.message = "You are standing inside a mansion's hall. In the mansion" + 
+			                            " there is a canary in a cage covered with black cloth, so" + 
+									    " that it does not sing and you cannot hear it. Your aim is" + 
+										" to find the bird and release it. If it sings when flies" + 
+										" away, you will become the happiest person.";;
+			Loc0_mansion_hall.item = "";
+			Loc0_mansion_hall.hasItem = false;
 						
-		    var Loc1_smth = new locale();
-		    Loc1_smth.id = 1;
-			Loc1_smth.name = "dark room";
-			Loc1_smth.message = "room 1";
-			Loc1_smth.item = "";
-			Loc1_smth.hasItem = false;
+		    var Loc1_dark_room = new locale();
+		    Loc1_dark_room.id = 1;
+			Loc1_dark_room.name = "dark room";
+			Loc1_dark_room.message = "You entered a dark room with no windows, so you cannot see"+ 
+			                         " anything...";
+			Loc1_dark_room.item = "";
+			Loc1_dark_room.hasItem = false;
 		
-			var Loc2_smth = new locale();
-			Loc2_smth.id = 2;
-			Loc2_smth.name = "living room";
-			Loc2_smth.message = "room 2";
-			Loc2_smth.item = "";
-			Loc2_smth.hasItem = false;
+			var Loc2_living_room = new locale();
+			Loc2_living_room.id = 2;
+			Loc2_living_room.name = "living room";
+			Loc2_living_room.message = "You entered a living room, there is a table and an armchair"+ 
+			                           " in front of a chimney."; 
+			Loc2_living_room.item = "";
+			Loc2_living_room.hasItem = false;
 			
-			var Loc3_smth = new locale();
-			Loc3_smth.id = 3;
-			Loc3_smth.name = "piano room";
-			Loc3_smth.message = "room 3";
-			Loc3_smth.hasItem = true;
-			Loc3_smth.item = itemMap.message;
+			var Loc3_piano_room = new locale();
+			Loc3_piano_room.id = 3;
+			Loc3_piano_room.name = "piano room";
+			Loc3_piano_room.message = "You are in a big room, there is a grand piano in the" +
+			                          " middle of the room and nothing else.";
+			Loc3_piano_room.hasItem = true;
+			Loc3_piano_room.item = itemMap.message;
 			
-			var Loc4_smth = new locale();
-			Loc4_smth.id = 4;
-			Loc4_smth.name = "kitchen";
-			Loc4_smth.message = "room 4";
-			Loc4_smth.item = itemFlashlight.message;
-			Loc4_smth.hasItem = true;
+			var Loc4_kitchen = new locale();
+			Loc4_kitchen.id = 4;
+			Loc4_kitchen.name = "kitchen";
+			Loc4_kitchen.message = "You have entered a kitchen.";
+			Loc4_kitchen.item = itemFlashlight.message;
+			Loc4_kitchen.hasItem = true;
 			
-			var Loc5_smth = new locale();
-			Loc5_smth.id = 5;
-			Loc5_smth.name = "dining";
-			Loc5_smth.message = "room 5";
-			Loc5_smth.item = "";
-			Loc5_smth.hasItem = false;
+			var Loc5_dining = new locale();
+			Loc5_dining.id = 5;
+			Loc5_dining.name = "dining";
+			Loc5_dining.message = "This is a dining hall. There is a large round table" + 
+			                      " in the middle of the room.";
+			Loc5_dining.item = "";
+			Loc5_dining.hasItem = false;
 			
-			var Loc6_smth = new locale();
-			Loc6_smth.id = 6;
-			Loc6_smth.name = "small corridor";
-			Loc6_smth.message = "room 6";
-			Loc6_smth.item = itemMusicSheet.message;
-			Loc6_smth.hasItem = true;
+			var Loc6_small_corridor = new locale();
+			Loc6_small_corridor.id = 6;
+			Loc6_small_corridor.name = "small corridor";
+			Loc6_small_corridor.message = "You entered a small and narrow corridor. You can" + 
+			                              " see pictures of previous owners of the mansion"; 
+			Loc6_small_corridor.item = itemMusicSheet.message;
+			Loc6_small_corridor.hasItem = true;
 			
-			var Loc7_smth = new locale();
-			Loc7_smth.id = 7;
-			Loc7_smth.name = "bedroom";
-			Loc7_smth.message = "room 7";
-			Loc7_smth.item = "";
-			Loc7_smth.hasItem = false;
+			var Loc7_bedroom = new locale();
+			Loc7_bedroom.id = 7;
+			Loc7_bedroom.name = "bedroom";
+			Loc7_bedroom.message = "Now you are in a bedroom. There is a" +
+			                       " bad, a desk and an old mirror in the room";
+			Loc7_bedroom.item = "";
+			Loc7_bedroom.hasItem = false;
 			
-			var Loc8_smth = new locale();
-			Loc8_smth.id = 8;
-			Loc8_smth.name = "large hallway";
-			Loc8_smth.message = "room 8";
-			Loc8_smth.item = itemBook.message;
-			Loc8_smth.hasItem = true;
+			var Loc8_large_hallway = new locale();
+			Loc8_large_hallway.id = 8;
+			Loc8_large_hallway.name = "large hallway";
+			Loc8_large_hallway.message = "You are in a large hallway now. You" + 
+			                             "can see different pictures of previous" + 
+									     "owners of the mansion.";
+			Loc8_large_hallway.item = itemBook.message;
+			Loc8_large_hallway.hasItem = true;
 			
-			var Loc9_smth = new locale();
-			Loc9_smth.id = 9;
-			Loc9_smth.name = "stairs";
-			Loc9_smth.message = "room 9";
-			Loc9_smth.item = "";
-			Loc9_smth.hasItem = false;
+			var Loc9_stairs = new locale();
+			Loc9_stairs.id = 9;
+			Loc9_stairs.name = "stairs";
+			Loc9_stairs.message = "You reached stairs that lead to the second floor." + 
+			                      "The door to enter that floor is closed, so you" + 
+							      "cannot get there now.";
+			Loc9_stairs.item = "";
+			Loc9_stairs.hasItem = false;
 			
-			var Loc10_smth = new locale();
-			Loc10_smth.id = 10;
-			Loc10_smth.name = "library";
-			Loc10_smth.message = "room 10";
-			Loc10_smth.item = "";
-			Loc10_smth.hasItem = false;
+			var Loc10_library = new locale();
+			Loc10_library.id = 10;
+			Loc10_library.name = "library";
+			Loc10_library.message = "This is a library. It is huge with high ceilings" + 
+			                        "and large windows. There is an enormous amount" + 
+								    "of books here.";
+			Loc10_library.item = "";
+			Loc10_library.hasItem = false;
 			
            //navigation functions
 		    function btn_go_North() {
 		    if (curLoc === 3) {
 			    curLoc = 0;               
-                updateDisplay(Loc0_smth);			
+                updateDisplay(Loc0_mansion_hall);			
 			   } else {
 			       if (curLoc === 0) {
 				       curLoc = 1;	
-                       updateDisplay(Loc1_smth);					   
+                       updateDisplay(Loc1_dark_room);					   
 			        } else {
 					    if (curLoc === 4) {
 				            curLoc = 5;	
-                             updateDisplay(Loc5_smth);
+                             updateDisplay(Loc5_dining);
 						 } else {
 							  if (curLoc === 5) {
 				                  curLoc = 6;	
-                                  updateDisplay(Loc6_smth);
+                                  updateDisplay(Loc6_small_corridor);
 							    } else {
 					                if (curLoc === 8) {
 				                        curLoc = 7;	
-                                        updateDisplay(Loc7_smth);
+                                        updateDisplay(Loc7_bedroom);
 						              } else {
 							               if (curLoc === 10) {
 				                               curLoc = 8;	
-                                               updateDisplay(Loc8_smth);
+                                               updateDisplay(Loc8_large_hallway);
 							                 } else {
 					                             navigationError();
 											}
@@ -256,27 +272,27 @@
 		    function btn_go_South() {
 			    if (curLoc === 1) {
 			        curLoc = 0;	
-                    updateDisplay(Loc0_smth);
+                    updateDisplay(Loc0_mansion_hall);
 			     } else {
 			          if (curLoc === 0) {
 				          curLoc = 3;
-                          updateDisplay(Loc3_smth);				  
+                          updateDisplay(Loc3_piano_room);				  
 				     } else {
 					     if (curLoc === 6) {
 				             curLoc = 5;	
-                             updateDisplay(Loc5_smth);
+                             updateDisplay(Loc5_dining);
 						 } else {
 							  if (curLoc === 5) {
 				                  curLoc = 4;	
-                                  updateDisplay(Loc4_smth);
+                                  updateDisplay(Loc4_kitchen);
 							    } else {
 					                if (curLoc === 7) {
 				                        curLoc = 8;	
-                                        updateDisplay(Loc8_smth);
+                                        updateDisplay(Loc8_large_hallway);
 						              } else {
 							               if (curLoc === 8) {
 				                               curLoc = 10;	
-                                               updateDisplay(Loc10_smth);
+                                               updateDisplay(Loc10_library);
 							                  } else {
 					                             navigationError();
 											}
@@ -291,31 +307,31 @@
 		    function btn_go_West() {
 		      if (curLoc === 4) {
                   curLoc = 0;  
-                  updateDisplay(Loc0_smth);		  
+                  updateDisplay(Loc0_mansion_hall);		  
 			      } else {
 			           if (curLoc === 0) {
 				           curLoc = 2;	
-                           updateDisplay(Loc2_smth);					   
+                           updateDisplay(Loc2_living_room);					   
 				        } else {
 						    if (curLoc === 7) {
 				                curLoc = 6;	
-                                updateDisplay(Loc6_smth);
+                                updateDisplay(Loc6_small_corridor);
 						    } else {
 							    if (curLoc === 6) {
 				                    curLoc = 1;	
-                                    updateDisplay(Loc1_smth);
+                                    updateDisplay(Loc1_dark_room);
 							     } else {
 							          if (curLoc === 8) {
 				                          curLoc = 5;	
-                                          updateDisplay(Loc5_smth);
+                                          updateDisplay(Loc5_dining);
 							           } else {
 					                        if (curLoc === 10) {
 				                                curLoc = 4;	
-                                                updateDisplay(Loc4_smth);
+                                                updateDisplay(Loc4_kitchen);
 						                     } else {
 							                      if (curLoc === 9) {
 				                                      curLoc = 8;	
-                                                      updateDisplay(Loc8_smth);
+                                                      updateDisplay(Loc8_large_hallway);
 							                       } else {
 					                                     navigationError();
 													}
@@ -332,31 +348,31 @@
 		    function btn_go_East(){
 		     if (curLoc === 2) {
 			     curLoc = 0;
-                 updateDisplay(Loc0_smth);				 
+                 updateDisplay(Loc0_mansion_hall);				 
 			     } else {
 			          if (curLoc === 0) {
 			              curLoc = 4;
-                          updateDisplay(Loc4_smth);		          
+                          updateDisplay(Loc4_kitchen);		          
 			            } else {
 						      if (curLoc === 1) {
 				                  curLoc = 6;	
-                                  updateDisplay(Loc6_smth);
+                                  updateDisplay(Loc6_small_corridor);
 							  } else {
 							       if (curLoc === 6) {
 				                       curLoc = 7;	
-                                       updateDisplay(Loc7_smth);
+                                       updateDisplay(Loc7_bedroom);
 									} else {
 							            if (curLoc === 5) {
 				                            curLoc = 8;	
-                                            updateDisplay(Loc8_smth);
+                                            updateDisplay(Loc8_large_hallway);
 									    } else {
 							                if (curLoc === 4) {
 				                                curLoc = 10;	
-                                                updateDisplay(Loc10_smth);
+                                                updateDisplay(Loc10_library);
 									         } else {
 							                     if (curLoc === 8) {
 				                                     curLoc = 9;	
-                                                     updateDisplay(Loc9_smth);
+                                                     updateDisplay(Loc9_stairs);
 									              } else {
 					                                  navigationError();
 												}
@@ -401,7 +417,6 @@
 		            }
 		  
 		    function updateDisplay(msg) {
-			         var msg = msg;
 					 var userCommand = document.getElementById("mainText");
 					 userCommand.value = msg + "\n\n" + userCommand.value;
 			         checkScore();
@@ -529,9 +544,7 @@ function buttonVisibility() {
 			            document.getElementById("eastBtn").disabled = false; 
 						document.getElementById("takeButton").disabled = true;
 		     }
-		   }
-			
-			
+		   }		
 		  // functions for keeping and showing score!
 		   function checkScore() {
 		     if (curLoc === 0) {
@@ -539,86 +552,73 @@ function buttonVisibility() {
 			         score = score + 5;
 				     hasVisitedRoom0 = true;
 				 }
-		     }
-		     
+		     }		     
 		    if (curLoc === 1) {			
 			      if (! hasVisitedRoom1) {			  
 			          score = score + 5;
 				      hasVisitedRoom1 = true;
 				  }
-			 }
-				 							 		
+			 }				 							 		
 			if (curLoc === 2) {
 			     if (! hasVisitedRoom2) {
 			         score = score + 5;
 				     hasVisitedRoom2 = true;
 				  }
-			 }
-				   			   
+			 }				   			   
 			if (curLoc === 3) {
 				  if (! hasVisitedRoom3) {
 			          score = score + 5;
 				      hasVisitedRoom3 = true;
 			       }
-			 }
-				 
+			 }				 
 			if (curLoc === 4) {
 			    if (! hasVisitedRoom4) {
 			        score = score + 5;
 				    hasVisitedRoom4 = true;				 
 			     }
-			 }
-				 
+			 }				 
 			if (curLoc === 5) {
 			    if (! hasVisitedRoom5) {
 			        score = score + 5;
 				    hasVisitedRoom5 = true;				 
 			     }
-			 }
-				 
+			 }				 
 			if (curLoc === 6) {
 			    if (! hasVisitedRoom6) {
 			        score = score + 5;
 				    hasVisitedRoom6 = true;				 
 			     }
-			 }
-				 
+			 }				 
 			if (curLoc === 7) {
 			    if (! hasVisitedRoom7) {
 			        score = score + 5;
 				    hasVisitedRoom7 = true;				 
 			     }				 
-			 }
-			 
+			 }			 
 			 if (curLoc === 8) {
 			    if (! hasVisitedRoom8) {
 			        score = score + 5;
 				    hasVisitedRoom8 = true;				 
 			     }
-			 }
-			 
+			 }			 
 			 if (curLoc === 9) {
 			    if (! hasVisitedRoom9) {
 			        score = score + 5;
 				    hasVisitedRoom9 = true;				 
 			     }
-			 }
-			 
+			 }			 
 			 if (curLoc === 10) {
 			    if (! hasVisitedRoom10) {
 			        score = score + 5;
 				    hasVisitedRoom10 = true;				 
 			     }
-			 }
-	 
+			 }	 
 			 if (curLoc === 3 && inventory.indexOf("map") >= 0) {
 			     score = score + 5;
-			 }
-			 
+			 }			 
 			 if (curLoc === 4 && inventory.indexOf("flashlight") >= 0) {
 			     score = score + 5;
-				}
-			
+				}			
 			if (curLoc === 6 && inventory.indexOf("Music") >= 0) {
 			     score = score + 5;
 				}
